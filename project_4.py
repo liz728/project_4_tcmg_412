@@ -2,7 +2,7 @@
 import collections
 import requests
 from os.path import exists
-import regex
+import re
 
 # Set variables for static values, url, dates etc
 url = "https://s3.amazonaws.com/tcmg476/http_access_log"
