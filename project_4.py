@@ -1,6 +1,7 @@
 # This is our project 3 script that will preform the tasks required in the lab
 import requests
 from os.path import exists
+import regex
 
 # Set variables for static values, url, dates etc
 url = "https://s3.amazonaws.com/tcmg476/http_access_log"
@@ -17,15 +18,14 @@ else:
 
 
 # How many requests were made on each day?
+
+day_regex = '(\d+/.../\d+)'
+
 with open("total_log.txt") as log_file:
     lines = []
     for line in log_file:
         lines.append(line)
 
-each_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-while count = 
-    print("https://s3.amazonaws.com/tcmg476/http_access_log", count)
-    count +=
 
 
 # How many requests were made on a week-by-week basis?
