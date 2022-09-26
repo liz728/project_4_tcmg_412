@@ -20,10 +20,55 @@ else:
 
 total_log = open("total_log.txt", 'r')
 
+<<<<<<< Updated upstream
 # How many requests were made on each day?
+=======
+
+# How many requests were made on each day?
+def count_days():
+    day_regex = '(\d+/.../\d+)'
+    day_check = '24/Oct/1994'
+    lines = []
+    for line in total_log:
+        day = str(re.findall(day_regex, str(line)))
+        day = day[2:13]
+
+        if day != day_check:
+            if len(day) == 0:
+                continue
+            else:
+                print(len(lines), "is the number of requests on", day_check)
+                lines = []
+
+        lines.append(line)
+        day_check = day
+    print(len(lines), "is the number of requests on", day_check)
+>>>>>>> Stashed changes
 
 
 # How many requests were made on a week-by-week basis?
+def count_week():
+    day_regex = '(\d+/.../\d+)'
+    day_check = '24/Oct/1994'
+    week_check = 0
+    lines = []
+    for line in total_log:
+        day = str(re.findall(day_regex, str(line)))
+        day = day[2:13]
+
+        if day != day_check:
+            if len(day) == 0:
+                continue
+            elif week_check == 6:
+                print(len(lines), "is the number of requests on", day_check)
+                lines = []
+                week_check = 0
+            else:
+                week_check += 1
+
+        lines.append(line)
+        day_check = day
+    print(len(lines), "is the number of requests on", day_check)
 
 
 # Per month?
@@ -80,13 +125,39 @@ def split_log():
                 # writes what was stored in lines and empties lines for next month
                 month_file.writelines(lines)
                 lines = []
-            month_file.close()
+                month_file.close()
 
         # These happen after we check if month changed so that we don't have some months seeping into wrong files
         lines.append(line)
         month_check = month
+        with open("Split_Files/" + month_check + ".txt", 'a+') as month_file:
+            month_file.writelines(lines)
+            month_file.close()
 
     return "Logs are now split and located in the Split_Files directory"
 
-most_least_req()
-split_log()
+
+# count_days()
+# count_week()
+# most_least_req()
+# split_log()
+
+menu = """Please enter a number that corresponds with the operation you would like to perform
+Requests per day: 1
+Requests per week: 2
+Most and least requested files: 3
+Split the log by month: 4
+Choice: """
+
+user_choice = int(input(menu))
+
+if user_choice == 1:
+    count_days()
+elif user_choice == 2:
+    count_week()
+elif user_choice == 3:
+    most_least_req()
+elif user_choice == 4:
+    split_log()
+else:
+    print("Not a valid entry")
