@@ -5,7 +5,7 @@ __pycache__/
 
 # all files created by the program
 *.txt
-
+.idea
 # C extensions
 *.so
 
