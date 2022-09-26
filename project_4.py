@@ -1,4 +1,4 @@
-# This is our project 3 script that will preform the tasks required in the lab
+# This is our project 3 script that will perform the tasks required in the lab
 import requests
 from os.path import exists
 
