@@ -35,36 +35,28 @@ total_log = open("total_log.txt", 'r')
 # What percentage of the requests were redirected elsewhere (any 3xx codes)?
 
 
-# What was the most-requested file?j
-lines = ""
-for line in total_log:
-    lines = lines + line
-arg = re.findall("GET(.+)HTTP", str(lines))
-count = collections.Counter(arg)
-max_value = 0
-max_element = 0
+# What was the most-requested file? # What was the least-requested file?
+def most_least_req():
+    lines = ""
+    for line in total_log:
+        lines = lines + line
+    arg = re.findall("GET(.+)HTTP", str(lines))
+    count = collections.Counter(arg)
+    max_value = 0
+    max_element = 0
+    min_element = 0
 
-for element in list(count.keys()):
-    if count[element] >= max_value:
-        max_value = count[element]
-        max_element = element
+    for element in list(count.keys()):
+        if count[element] >= max_value:
+            max_value = count[element]
+            max_element = element
 
-print(max_element)
+        if count[element] == 1:
+            min_element = element
 
-# What was the least-requested file?
-min_value = 0
-min_element = ''
+    print(max_element, "is the most requested file")
+    print(min_element, "is the least requested file")
 
-for element in list(count.keys()):
-    if count[element] == "":
-        pass
-
-    if count[element] <= min_value:
-        min_value = count[element]
-        min_element = element
-
-print(min_element)
-print('--------------')
 
 # split total log into by month log files
 def split_log():
@@ -95,3 +87,6 @@ def split_log():
         month_check = month
 
     return "Logs are now split and located in the Split_Files directory"
+
+most_least_req()
+split_log()
