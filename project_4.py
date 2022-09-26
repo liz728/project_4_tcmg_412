@@ -1,5 +1,5 @@
 # This is our project 3 script that will preform the tasks required in the lab
-import requests
+from pip._vendor import requests
 from os.path import exists
 
 # Set variables for static values, url, dates etc
@@ -17,11 +17,19 @@ else:
 
 
 # How many requests were made on each day?
-
-
+with open("total_log.txt") as log_file:
+    lines = []
+    for line in log_file:
+        lines.append(line)
+        
+total_requests = 0
+each_day = '{"Monday": 0, "Tuesday": 0, "Wednesday": 0, "Thursday": 0, "Friday": 0, "Saturday": 0, "Sunday": 0}'
+for line in lines:
+    total_requests += 1
+    if each_day in line:
+        break
 
 # How many requests were made on a week-by-week basis?
-
 
 
 # Per month?
