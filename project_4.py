@@ -20,13 +20,24 @@ else:
 total_log = open("total_log.txt", 'r')
 
 # How many requests were made on each day?
-
-day_regex = '(\d+/.../\d+)'
-
-with open("total_log.txt") as log_file:
+def count_days():
+    day_regex = '(\d+/.../\d+)'
+    day_check = '24/Oct/1994'
     lines = []
-    for line in log_file:
+    for line in total_log:
+        day = str(re.findall(day_regex, str(line)))
+        day = day[2:13]
+        
+        if day != day_check:
+            if len(day) == 0:
+                continue
+            else:
+                print(len(lines), "is the number of requests on", day_check)
+                lines = []
+                
         lines.append(line)
+        day_check = day
+    print(len(lines), "is the number of requests on", day_check)
 
 
 # How many requests were made on a week-by-week basis?
