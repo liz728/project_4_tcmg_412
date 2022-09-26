@@ -1,7 +1,8 @@
 # This is our project 3 script that will preform the tasks required in the lab
 import collections
-
-import requests
+from itertools import count
+from pip._vendor import requests
+import requests 
 from os.path import exists
 import re
 
@@ -20,9 +21,8 @@ else:
 
 total_log = open("total_log.txt", 'r')
 
-<<<<<<< Updated upstream
+
 # How many requests were made on each day?
-=======
 
 # How many requests were made on each day?
 def count_days():
@@ -43,7 +43,8 @@ def count_days():
         lines.append(line)
         day_check = day
     print(len(lines), "is the number of requests on", day_check)
->>>>>>> Stashed changes
+
+
 
 
 # How many requests were made on a week-by-week basis?
@@ -161,3 +162,4 @@ elif user_choice == 4:
     split_log()
 else:
     print("Not a valid entry")
+

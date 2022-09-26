@@ -4,10 +4,7 @@ to do this, you need to install the requests library via pip
 open a python editor or your OS command line and type the following in the terminal
 
 pip install requests
-<<<<<<< Updated upstream
-=======
-pip install regex
 pip install collections
->>>>>>> Stashed changes
+pip install re
 
 once installed, the file should run
