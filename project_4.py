@@ -1,6 +1,8 @@
 # This is our project 3 script that will preform the tasks required in the lab
 import collections
-import requests
+from itertools import count
+from pip._vendor import requests
+import requests 
 from os.path import exists
 import re
 
@@ -38,6 +40,8 @@ def count_days():
         lines.append(line)
         day_check = day
     print(len(lines), "is the number of requests on", day_check)
+
+count_days()
 
 
 # How many requests were made on a week-by-week basis?
