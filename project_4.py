@@ -74,13 +74,12 @@ def count_week():
 
 # Per month?
 def count_month():
-    month_regex = '(/.../)'
-    month_check = '/Oct/'
+    month_regex = '(/.../\d+)'
+    month_check = 'Oct/1994'
     lines = []
     for line in total_log:
         month = str(re.findall(month_regex, str(line)))
-        month = month[2:13]
-
+        month = month[3:11]
         if month != month_check:
             if len(month) == 0:
                 continue
