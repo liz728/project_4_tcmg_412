@@ -76,7 +76,18 @@ def count_week():
 
 
 # What percentage of the requests were not successful (any 4xx status code)?
-
+def count4x():
+    total_lines = 0
+    total_4x = 0
+    for line in total_log:
+        stat_code = line.split()[-2]
+        if re.match("4\d\d",stat_code):
+            total_4x += 1
+        total_lines += 1
+    percent = total_4x / total_lines * 100
+    print(f"Percentage of 4xx Requests: {percent:.2f}%")
+        
+    
 
 # What percentage of the requests were redirected elsewhere (any 3xx codes)?
 
@@ -148,6 +159,7 @@ Requests per day: 1
 Requests per week: 2
 Most and least requested files: 3
 Split the log by month: 4
+Percentage of '4xx' requests: 5
 Choice: """
 
 user_choice = int(input(menu))
@@ -160,6 +172,8 @@ elif user_choice == 3:
     most_least_req()
 elif user_choice == 4:
     split_log()
+elif user_choice == 5:
+    count4x()
 else:
     print("Not a valid entry")
 
