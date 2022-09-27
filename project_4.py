@@ -4,6 +4,7 @@ from itertools import count
 from pip._vendor import requests
 import requests 
 from os.path import exists
+import os.path
 import re
 
 # Set variables for static values, url, dates etc
@@ -18,8 +19,6 @@ if not exists("total_log.txt"):
     print("we got the log from the internet")
 else:
     print("there was already a log on your local machine")
-
-total_log = open("total_log.txt", 'r')
 
 
 # How many requests were made on each day?
@@ -43,8 +42,6 @@ def count_days():
         lines.append(line)
         day_check = day
     print(len(lines), "is the number of requests on", day_check)
-
-
 
 
 # How many requests were made on a week-by-week basis?
@@ -91,19 +88,19 @@ def count_month():
         month_check = month
     print(len(lines), "is the number of requests on", month_check)
 
+
 # What percentage of the requests were not successful (any 4xx status code)?
 def count4x():
     total_lines = 0
     total_4x = 0
     for line in total_log:
         stat_code = line.split()[-2]
-        if re.match("4\d\d",stat_code):
+        if re.match("4\d\d", stat_code):
             total_4x += 1
         total_lines += 1
     percent = total_4x / total_lines * 100
     print(f"Percentage of 4xx Requests: {percent:.2f}%")
         
-    
 
 # What percentage of the requests were redirected elsewhere (any 3xx codes)?
 
@@ -111,6 +108,7 @@ def count4x():
 # What was the most-requested file? # What was the least-requested file?
 def most_least_req():
     lines = ""
+    print("Checking, please wait, this may take about a minute")
     for line in total_log:
         lines = lines + line
     arg = re.findall("GET(.+)HTTP", str(lines))
@@ -133,6 +131,8 @@ def most_least_req():
 
 # split total log into by month log files
 def split_log():
+    if not exists("Split_Files"):
+        os.mkdir("Split_Files")
     # create empty list for storing each month
     lines = []
     # This variable lets us know if the new line from the log file has changed months
@@ -147,7 +147,7 @@ def split_log():
         # ensuring we don't run into function compatibility issues
         line = str(line)
 
-        # Checks if month was updated, if it was, we know the month changed and we need to dump what we have
+        # Checks if month was updated, if it was, we know the month changed, and we need to dump what we have
         if month != month_check:
             with open("Split_Files/" + month_check + ".txt", 'a+') as month_file:
                 # writes what was stored in lines and empties lines for next month
@@ -165,11 +165,6 @@ def split_log():
     return "Logs are now split and located in the Split_Files directory"
 
 
-# count_days()
-# count_week()
-# most_least_req()
-# split_log()
-
 menu = """Please enter a number that corresponds with the operation you would like to perform
 Requests per day: 1
 Requests per week: 2
@@ -180,19 +175,27 @@ Percentage of '4xx' requests: 6
 
 Choice: """
 
-user_choice = int(input(menu))
+while True:
+    total_log = open("total_log.txt", 'r')
 
-if user_choice == 1:
-    count_days()
-elif user_choice == 2:
-    count_week()
-elif user_choice == 3:
-    count_month()
-elif user_choice == 4:
-    most_least_req()
-elif user_choice == 5:
-    split_log()
-elif user_choice == 6:
-    count4x()
-else:
-    print("Not a valid entry")
+    try:
+        user_choice = int(input(menu))
+    except:
+        print("That was not a number!")
+
+        continue
+    if user_choice == 1:
+        count_days()
+    elif user_choice == 2:
+        count_week()
+    elif user_choice == 3:
+        count_month()
+    elif user_choice == 4:
+        most_least_req()
+    elif user_choice == 5:
+        split_log()
+    elif user_choice == 6:
+        count4x()
+    elif user_choice > 6 & user_choice <= 0:
+        print("Not a valid entry")
+
