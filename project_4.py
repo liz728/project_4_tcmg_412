@@ -74,8 +74,8 @@ def count_week():
 
 # Per month?
 def count_month():
-    month_regex = '(/.../)'
-    month_check = '/Oct/'
+    month_regex = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
+    month_check = 'Oct'
     lines = []
     for line in total_log:
         month = str(re.findall(month_regex, str(line)))
