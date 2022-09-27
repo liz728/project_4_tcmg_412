@@ -104,6 +104,16 @@ def count4x():
 
 # What percentage of the requests were redirected elsewhere (any 3xx codes)?
 
+def count_3x():
+    total_lines = 0
+    total_3x = 0
+    for line in total_log:
+        stat_code = line.split()[-2]
+        if re.match("3\d\d", stat_code):
+            total_3x += 1
+        total_lines += 1
+    percent = total_3x / total_lines * 100
+    print(f"Percentage of 3xx Requests: {percent:.2f}%")
 
 # What was the most-requested file? # What was the least-requested file?
 def most_least_req():
@@ -179,6 +189,7 @@ Requests per month: 3
 Most and least requested files: 4
 Split the log by month: 5
 Percentage of '4xx' requests: 6
+Percentage of '3xx' requests: 7
 
 Choice: """
 
@@ -203,6 +214,8 @@ while True:
         split_log()
     elif user_choice == 6:
         count4x()
-    elif user_choice > 6 & user_choice <= 0:
+    elif user_choice == 7:
+        count_3x()
+    elif user_choice > 7 & user_choice <= 0:
         print("Not a valid entry")
 
