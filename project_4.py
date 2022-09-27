@@ -1,6 +1,5 @@
 # This is our project 3 script that will preform the tasks required in the lab
 import collections
-from itertools import count
 from pip._vendor import requests
 import requests 
 from os.path import exists
