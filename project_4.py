@@ -133,11 +133,15 @@ def most_least_req():
 def split_log():
     if not exists("Split_Files"):
         os.mkdir("Split_Files")
+    else:
+        return print("There is already an instance of Split_Files, please move or delete and re-run")
+
     # create empty list for storing each month
     lines = []
     # This variable lets us know if the new line from the log file has changed months
     month_check = "Oct"
 
+    print("Splitting the files now, please wait")
     # for loop runs through each line of log file
     for line in total_log:
         # uses regex to look for the pattern where the month is located
@@ -162,10 +166,13 @@ def split_log():
         month_file.writelines(lines)
         month_file.close()
 
-    return "Logs are now split and located in the Split_Files directory"
+    return print("Logs are now split and located in the Split_Files directory")
 
 
-menu = """Please enter a number that corresponds with the operation you would like to perform
+menu = """--------------------------------------------
+
+
+Please enter a number that corresponds with the operation you would like to perform
 Requests per day: 1
 Requests per week: 2
 Requests per month: 3
