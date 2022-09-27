@@ -93,6 +93,7 @@ def count_month():
 def count4x():
     total_lines = 0
     total_4x = 0
+    print("Calculating...")
     for line in total_log:
         stat_code = line.split()[-2]
         if re.match("4\d\d", stat_code):
@@ -107,6 +108,7 @@ def count4x():
 def count_3x():
     total_lines = 0
     total_3x = 0
+    print("Calculating...")
     for line in total_log:
         stat_code = line.split()[-2]
         if re.match("3\d\d", stat_code):
