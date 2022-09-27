@@ -51,7 +51,7 @@ def count_days():
 def count_week():
     day_regex = '(\d+/.../\d+)'
     day_check = '24/Oct/1994'
-    week_check = 0
+    week_count = 0
     lines = []
     for line in total_log:
         day = str(re.findall(day_regex, str(line)))
@@ -60,12 +60,12 @@ def count_week():
         if day != day_check:
             if len(day) == 0:
                 continue
-            elif week_check == 6:
+            elif week_count == 6:
                 print(len(lines), "is the number of requests on", day_check)
                 lines = []
-                week_check = 0
+                week_count = 0
             else:
-                week_check += 1
+                week_count += 1
 
         lines.append(line)
         day_check = day
@@ -92,7 +92,18 @@ def count_month():
     print(len(lines), "is the number of requests on", month_check)
 
 # What percentage of the requests were not successful (any 4xx status code)?
-
+def count4x():
+    total_lines = 0
+    total_4x = 0
+    for line in total_log:
+        stat_code = line.split()[-2]
+        if re.match("4\d\d",stat_code):
+            total_4x += 1
+        total_lines += 1
+    percent = total_4x / total_lines * 100
+    print(f"Percentage of 4xx Requests: {percent:.2f}%")
+        
+    
 
 # What percentage of the requests were redirected elsewhere (any 3xx codes)?
 
@@ -165,6 +176,8 @@ Requests per week: 2
 Requests per month: 3
 Most and least requested files: 4
 Split the log by month: 5
+Percentage of '4xx' requests: 6
+
 Choice: """
 
 user_choice = int(input(menu))
@@ -179,5 +192,7 @@ elif user_choice == 4:
     most_least_req()
 elif user_choice == 5:
     split_log()
+elif user_choice == 6:
+    count4x()
 else:
     print("Not a valid entry")
