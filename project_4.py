@@ -158,9 +158,9 @@ def split_log():
         # These happen after we check if month changed so that we don't have some months seeping into wrong files
         lines.append(line)
         month_check = month
-        with open("Split_Files/" + month_check + ".txt", 'a+') as month_file:
-            month_file.writelines(lines)
-            month_file.close()
+    with open("Split_Files/" + month_check + ".txt", 'a+') as month_file:
+        month_file.writelines(lines)
+        month_file.close()
 
     return "Logs are now split and located in the Split_Files directory"
 
