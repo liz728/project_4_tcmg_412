@@ -51,7 +51,7 @@ def count_days():
 def count_week():
     day_regex = '(\d+/.../\d+)'
     day_check = '24/Oct/1994'
-    week_check = 0
+    week_count = 0
     lines = []
     for line in total_log:
         day = str(re.findall(day_regex, str(line)))
@@ -60,12 +60,12 @@ def count_week():
         if day != day_check:
             if len(day) == 0:
                 continue
-            elif week_check == 6:
+            elif week_count == 6:
                 print(len(lines), "is the number of requests on", day_check)
                 lines = []
-                week_check = 0
+                week_count = 0
             else:
-                week_check += 1
+                week_count += 1
 
         lines.append(line)
         day_check = day
