@@ -73,7 +73,23 @@ def count_week():
 
 
 # Per month?
+def count_month():
+    month_regex = '(/.../\d+)'
+    month_check = 'Oct/1994'
+    lines = []
+    for line in total_log:
+        month = str(re.findall(month_regex, str(line)))
+        month = month[3:11]
+        if month != month_check:
+            if len(month) == 0:
+                continue
+            else:
+                print(len(lines), "is the number of requests on", month_check)
+                lines = []
 
+        lines.append(line)
+        month_check = month
+    print(len(lines), "is the number of requests on", month_check)
 
 # What percentage of the requests were not successful (any 4xx status code)?
 def count4x():
@@ -157,9 +173,11 @@ def split_log():
 menu = """Please enter a number that corresponds with the operation you would like to perform
 Requests per day: 1
 Requests per week: 2
-Most and least requested files: 3
-Split the log by month: 4
-Percentage of '4xx' requests: 5
+Requests per month: 3
+Most and least requested files: 4
+Split the log by month: 5
+Percentage of '4xx' requests: 6
+
 Choice: """
 
 user_choice = int(input(menu))
@@ -169,11 +187,12 @@ if user_choice == 1:
 elif user_choice == 2:
     count_week()
 elif user_choice == 3:
-    most_least_req()
+    count_month()
 elif user_choice == 4:
-    split_log()
+    most_least_req()
 elif user_choice == 5:
+    split_log()
+elif user_choice == 6:
     count4x()
 else:
     print("Not a valid entry")
-
